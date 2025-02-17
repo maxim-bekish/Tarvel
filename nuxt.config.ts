@@ -1,25 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import Aura from '@primevue/themes/aura';
-import { definePreset } from '@primevue/themes';
+
+import { primeVue } from './primeVue';
 
 export default defineNuxtConfig({
 	compatibilityDate: '2024-11-01',
 	devtools: { enabled: true },
 	modules: ['@vueuse/nuxt', '@nuxt/fonts', 'dayjs-nuxt', '@primevue/nuxt-module'],
 	fonts: {
-		families: [{ name: 'Montserrat', provider: 'google' }],
+		families: [{ name: 'Roboto', provider: 'google' }],
 	},
-	primevue: {
-		options: {
-			theme: {
-				preset: definePreset(Aura, {
-					semantic: {
-						primary: {
-        //  настроить свои цвета
-						},
-					},
-				}),
-			},
-		},
-	},
+	css: ['~/assets/style/colors.scss', '~/assets/style/main.scss', '~/assets/style/icons.scss'],
+	primevue: primeVue,
 });
