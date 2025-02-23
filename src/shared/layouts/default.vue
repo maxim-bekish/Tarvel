@@ -1,19 +1,17 @@
 <script setup lang="ts">
-import AppHeader from '../components/AppHeader/AppHeader.vue';
-import AppFooter from '../components/AppFooter/AppFooter.vue';
+import VHeader from '@widgets/VHeader';
+import VFooter from '@widgets/VFooter';
 </script>
 
 <template>
 	<div class="wrapper">
-		<app-header />
+		<v-header />
 		<slot />
-		<app-footer />
+		<v-footer />
 	</div>
 </template>
 <style lang="scss" scoped>
 .wrapper {
-
-
 	margin: 0 auto;
 }
 </style>

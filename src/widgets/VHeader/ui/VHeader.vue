@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import ItemNav from './shared/ItemNav.vue';
+import ItemNav from './ItemNav.vue';
 
 const menu = [
 	{ title: 'Подбор тура', href: '#', id: 0 },
@@ -12,16 +12,15 @@ const menu = [
 <template>
 	<div class="header container">
 		<div class="header__logo">
-			<img src="./logo.svg" alt="Example SVG" />
+			<img src="../assets/logo.svg" alt="Example SVG" />
 		</div>
 		<ul class="header__menu">
 			<item-nav v-for="item in menu" :key="item.id" :item="item" />
 		</ul>
 		<div class="header__controls">
-			<Button
-				class="header__button"
-				severity="secondary"
-				variant="outlined"
+			<v-button
+				outline
+				v-tooltip="{ value: 'Confirm to proceed', showDelay: 1000, hideDelay: 300 }"
 				label="оставить заявку" />
 			<div class="header__actions">
 				<div class="header__actions-group">
@@ -29,6 +28,7 @@ const menu = [
 						class="header__action-button"
 						severity="secondary"
 						variant="link"
+						v-tooltip="{ value: 'Confirm to proceed', showDelay: 1000, hideDelay: 300 }"
 						icon="icon icon-call" />
 					<Button
 						class="header__action-button"

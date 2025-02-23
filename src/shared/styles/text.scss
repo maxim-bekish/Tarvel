@@ -1,0 +1,25 @@
+.text {
+	&-300-12-14 {
+		font-weight: 300;
+		font-size: 12px;
+		line-height: 14px;
+	}
+	&-300-14-16 {
+		font-weight: 300;
+		font-size: 14px;
+		line-height: 16px;
+	}
+	&-400-14-16 {
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 16px;
+	}
+	&-500-16-19 {
+		font-weight: 500;
+		font-size: 16px;
+		line-height: 19px;
+	}
+}
+.text-uppercase {
+	text-transform: uppercase;
+}

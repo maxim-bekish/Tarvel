@@ -1,0 +1,77 @@
+.icon {
+	display: block;
+	background-color: var(--icon-color, black);
+	mask-size: var(--icon-size, contain);
+	-webkit-mask-size: var(--icon-size, contain);
+	mask-position: center; // Центрирование
+	mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+	width: var(--icon-width, 24px);
+	height: var(--icon-height, 24px);
+}
+
+.icon {
+	&-call {
+		mask-image: url('../images/svg/call.svg');
+		-webkit-mask-image: url('../images/svg/call.svg');
+	}
+	&-location {
+		mask-image: url('../images/svg/location.svg');
+		-webkit-mask-image: url('../images/svg/location.svg');
+	}
+	&-burger {
+		mask-image: url('../images/svg/burger.svg');
+		-webkit-mask-image: url('../images/svg/burger.svg');
+	}
+	&-arrowRightDown {
+		mask-image: url('../images/svg/arrowRightDown.svg');
+		-webkit-mask-image: url('../images/svg/arrowRightDown.svg');
+	}
+	&-message {
+		mask-image: url('../images/svg/message.svg');
+		-webkit-mask-image: url('../images/svg/message.svg');
+	}
+	&-logo {
+		mask-image: url('../images/svg/logo.svg');
+		-webkit-mask-image: url('../images/svg/logo.svg');
+    --icon-width: 159px;
+		--icon-height: 58px;
+    --icon-color: var(--white);
+	}
+	&-facebook {
+		mask-image: url('../images/svg/facebook.svg');
+		-webkit-mask-image: url('../images/svg/facebook.svg');
+		--icon-width: 16px;
+		--icon-height: 16px;
+	}
+	&-ok-ru {
+		mask-image: url('../images/svg/ok-ru.svg');
+		-webkit-mask-image: url('../images/svg/ok-ru.svg');
+    --icon-width: 11px;
+		--icon-height: 19px;
+	}
+	&-telegram {
+		mask-image: url('../images/svg/telegram.svg');
+		-webkit-mask-image: url('../images/svg/telegram.svg');
+    --icon-width: 13px;
+		--icon-height: 16px;
+	}
+	&-whatsapp {
+		mask-image: url('../images/svg/whatsapp.svg');
+		-webkit-mask-image: url('../images/svg/whatsapp.svg');
+    --icon-width: 16px;
+		--icon-height: 16px;
+	}
+	&-instagram {
+		mask-image: url('../images/svg/instagram.svg');
+		-webkit-mask-image: url('../images/svg/instagram.svg');
+    --icon-width: 16px;
+		--icon-height: 16px;
+	}
+	&-vk {
+		mask-image: url('../images/svg/vk.svg');
+		-webkit-mask-image: url('../images/svg/vk.svg');
+    --icon-width: 21px;
+		--icon-height: 13px;
+	}
+}
