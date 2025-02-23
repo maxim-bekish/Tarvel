@@ -18,30 +18,26 @@ const menu = [
 			<item-nav v-for="item in menu" :key="item.id" :item="item" />
 		</ul>
 		<div class="header__controls">
-			<v-button
-				outline
-				v-tooltip="{ value: 'Confirm to proceed', showDelay: 1000, hideDelay: 300 }"
-				label="оставить заявку" />
+			<v-button variant="outline" label="оставить заявку" />
 			<div class="header__actions">
 				<div class="header__actions-group">
-					<Button
+					<v-button
 						class="header__action-button"
-						severity="secondary"
-						variant="link"
-						v-tooltip="{ value: 'Confirm to proceed', showDelay: 1000, hideDelay: 300 }"
+						variant="ghost"
+						iconSize="xl"
 						icon="icon icon-call" />
-					<Button
+					<v-button
 						class="header__action-button"
-						severity="secondary"
-						variant="link"
+						variant="ghost"
+						iconSize="xl"
 						icon="icon icon-location" />
 				</div>
 				<div class="header__divider"></div>
 				<div class="header__burger">
-					<Button
+					<v-button
 						class="header__burger-button"
-						severity="secondary"
-						variant="link"
+						variant="ghost"
+						iconSize="xl"
 						icon="icon icon-burger" />
 				</div>
 			</div>
@@ -67,6 +63,10 @@ const menu = [
 		display: flex;
 		align-items: center;
 		gap: 24px;
+		&-group {
+			display: flex;
+			gap: 10px;
+		}
 	}
 	&__divider {
 		width: 1px;

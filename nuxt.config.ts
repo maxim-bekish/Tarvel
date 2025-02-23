@@ -2,7 +2,6 @@
 import path from 'path';
 import { primeVue } from './primeVue';
 
-console.log('[Resolved Path]:', path.resolve(__dirname, 'src/shared/layouts/default.vue'));
 
 export default defineNuxtConfig({
 	compatibilityDate: '2024-11-01',
