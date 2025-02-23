@@ -3,6 +3,7 @@
 		<input
 			:disabled="disabled"
 			v-model="checked1"
+ 
 			:id="code"
 			class="checkbox__input"
 			type="checkbox" />
@@ -22,6 +23,7 @@ const props = withDefaults(
 	}>(),
 	{ disabled: false }
 );
+console.log(props.code)
 const checked1 = defineModel();
 </script>
 

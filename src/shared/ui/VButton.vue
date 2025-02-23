@@ -5,7 +5,7 @@ interface ButtonProps {
 	/** Вариант кнопки (default, outline, ghost) */
 	variant?: 'default' | 'outline' | 'ghost';
 	/** Цветовая схема кнопки (черный, красный, серый) */
-	severity?: 'black' | 'red' | 'gray';
+	color?: 'black' | 'red' | 'gray';
 	/** Тип кнопки (button, submit) */
 	type?: 'button' | 'submit';
 	/** Класс иконки для отображения на кнопке */
@@ -14,6 +14,8 @@ interface ButtonProps {
 	iconPos?: 'right' | 'left';
 	/** Размер иконки (sm, mb, xl) */
 	iconSize?: 'sm' | 'mb' | 'xl';
+	/** Текст в верхнем регистре (boolean) */
+	uppercase?: boolean;
 }
 
 /**
@@ -22,31 +24,33 @@ interface ButtonProps {
  * Свойства:
  * @prop {string | null} label - Текст метки кнопки.
  * @prop {'default' | 'outline' | 'ghost'} variant - Вариант кнопки (default, outline, ghost).
- * @prop {'black' | 'red' | 'gray'} severity - Цветовая схема кнопки (черный, красный, серый).
+ * @prop {'black' | 'red' | 'gray'} color - Цветовая схема кнопки (черный, красный, серый).
  * @prop {'button' | 'submit'} type - Тип кнопки (button, submit).
  * @prop {string | null} icon - Класс иконки для отображения на кнопке.
  * @prop {'right' | 'left'} iconPos - Позиция иконки относительно текста кнопки.
  * @prop {'sm' | 'mb' | 'xl'} iconSize - Размер иконки (sm, mb, xl).
+ * @prop {boolean} uppercase - Размер иконки (sm, mb, xl).
  */
 const props = withDefaults(defineProps<ButtonProps>(), {
 	label: null,
 	icon: null,
 	type: 'button',
 	iconPos: 'right',
-	severity: 'black',
+	color: 'black',
 	variant: 'default',
 	iconSize: 'sm',
+	uppercase: false,
 });
 
 // Деструктуризация пропсов для удобства использования в шаблоне
-const { label, variant, severity, icon, iconPos, iconSize } = toRefs(props);
+const { label, variant, color, icon, iconPos, iconSize } = toRefs(props);
 
 /**
  * Формирование классов для кнопки на основе переданных пропсов.
  * Включает в себя стили для варианта, цветовой схемы и логики отображения иконки.
  */
 const buttonClass = computed(() => [
-	`e-bottom-${variant.value}-${severity.value}`,
+	`e-bottom-${variant.value}-${color.value}`,
 	`e-bottom-${variant.value}`,
 	label.value ? '' : 'e-bottom-icon-only',
 ]);
@@ -58,7 +62,12 @@ const buttonClass = computed(() => [
 		class="e-bottom"
 		:class="buttonClass">
 		<!-- Отображение метки кнопки -->
-		<span v-if="label" class="e-bottom-label text-500-16-19 text-uppercase">{{ label }}</span>
+		<span
+			v-if="label"
+			class="e-bottom-label text-500-16-19"
+			:class="{ 'text-uppercase': uppercase }">
+			{{ label }}
+		</span>
 
 		<!-- Отображение иконки, если она задана -->
 		<i

@@ -18,7 +18,7 @@ const menu = [
 			<item-nav v-for="item in menu" :key="item.id" :item="item" />
 		</ul>
 		<div class="header__controls">
-			<v-button variant="outline" label="оставить заявку" />
+			<v-button variant="outline" uppercase label="оставить заявку" />
 			<div class="header__actions">
 				<div class="header__actions-group">
 					<v-button
