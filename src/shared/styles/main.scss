@@ -3,6 +3,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	--p-popover-content-padding: 0;
 }
 a {
 	text-decoration: none;
@@ -16,9 +17,31 @@ li {
 
 .container {
 	// padding-inline: 400px;
- 
- 
+
 	@media (max-width: 1024px) {
 		padding-inline: 48px;
 	}
+}
+.scroll {
+  padding-right:10px ;
+	/* Для браузеров, поддерживающих ::-webkit-scrollbar */
+	&::-webkit-scrollbar {
+		width: 4px; /* ширина скроллбара */
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: #888; /* цвет "ползунка" */
+		border-radius: 5px; /* закругление краев */
+	}
+
+	&::-webkit-scrollbar-thumb:hover {
+		background-color: #555; /* цвет "ползунка" при наведении */
+	}
+
+	&::-webkit-scrollbar-track {
+		background-color: #f1f1f1; /* цвет фона скроллбара */
+		border-radius: 5px; /* закругление краев */
+	}
+
+	/* Общая стилизация для всех браузеров */
 }

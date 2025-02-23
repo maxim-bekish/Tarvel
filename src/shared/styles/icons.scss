@@ -77,6 +77,12 @@
 	&-line {
 		mask-image: url('../images/svg/line.svg');
 		-webkit-mask-image: url('../images/svg/line.svg');
-
+	}
+	&-check {
+		mask-image: url('../images/svg/check.svg');
+		-webkit-mask-image: url('../images/svg/check.svg');
+		--icon-color: var(--white);
+		--icon-width: 16px;
+		--icon-height: 15px;
 	}
 }
