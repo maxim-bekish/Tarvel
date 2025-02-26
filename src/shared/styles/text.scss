@@ -1,40 +1,38 @@
 .text {
-	&-300-12-14 {
-		font-weight: 300;
-		font-size: 12px;
-		line-height: 14px;
-	}
-	&-300-14-16 {
-		font-weight: 300;
-		font-size: 14px;
-		line-height: 16px;
-	}
-	&-400-14-16 {
-		font-weight: 400;
-		font-size: 14px;
-		line-height: 16px;
-	}
-	&-500-16-19 {
-		font-weight: 500;
-		font-size: 16px;
-		line-height: 19px;
-	}
-	&-800-128-135 {
-		font-weight: 800;
-		font-size: 128px;
-		line-height: 135px;
-	}
-	&-800-100-135 {
-		font-weight: 800;
-		font-size: 100px;
-		line-height: 135px;
-	}
-	&-400-28-33 {
-		font-weight: 400;
-		font-size: 28px;
-		line-height: 33px;
+	$styles: (
+		300: (
+			(12, 14),
+			(14, 16),
+		),
+		400: (
+			(12, 14),
+			(14, 16),
+			(28, 33),
+		),
+		500: (
+			(16, 19),
+		),
+		800: (
+			(100, 135),
+			(128, 135),
+		),
+	);
+
+	@each $weight, $sizes in $styles {
+		@each $size in $sizes {
+			$font-size: nth($size, 1);
+			$line-height: nth($size, 2);
+
+			&-#{$weight}-#{$font-size}-#{$line-height} {
+				font-weight: $weight;
+				font-size: #{$font-size}px;
+				line-height: #{$line-height}px;
+
+			}
+		}
 	}
 }
+
 .text-uppercase {
 	text-transform: uppercase;
 }

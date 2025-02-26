@@ -23,7 +23,7 @@ const props = withDefaults(
 	}>(),
 	{ disabled: false }
 );
-console.log(props.code)
+// console.log(props.code)
 const checked1 = defineModel();
 </script>
 

@@ -76,7 +76,7 @@ const buttonClass = computed(() => [
 	</button>
 </template>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 /**
  * Базовые цвета и анимации для кнопки
  */
@@ -109,7 +109,7 @@ $opacity: 0.8;
    * Варианты кнопки: default, outline, ghost
    */
 	&-default {
-		color: var(--white);
+		color: var(--white);;
 		--icon-color: var(--white);
 
 		&-red {
@@ -209,6 +209,9 @@ $opacity: 0.8;
 				--icon-height: 24px;
 			}
 		}
+	}
+	&-label {
+		color: inherit;
 	}
 }
 </style>

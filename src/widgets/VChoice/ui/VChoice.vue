@@ -1,7 +1,21 @@
 <template>
 	<Form v-slot="$form" :initialValues="initialValues" @submit="onFormSubmit" class="choice">
-		<div class=" ">
-			<input @click="toggle" readonly :value="kuda" type="text" />
+		<div class="choice__where">
+			<div @click="toggle">
+				<label
+					for="where"
+					:class="whereText ? 'text-400-12-14' : 'text-500-16-19 text-uppercase'"
+					class="choice__where-text">
+					Куда
+				</label>
+				<input
+					v-show="whereText"
+					id="where"
+					class="text-uppercase resetInput text-500-16-19"
+					type="text"
+					:value="whereText" />
+			</div>
+
 			<Popover ref="op" class="popover">
 				<CheckboxGroup name="country" class="popover__content">
 					<div>
@@ -19,7 +33,7 @@
 						<v-text tag="h4" class="popover__content-group-title text-500-16-19">Все страны</v-text>
 						<div class="popover__content-group scroll">
 							<v-checkbox
-								v-for="item in initialValues.otherCountries"
+								v-for="item in initialValues.countries"
 								:key="item.id"
 								v-model="item.checked"
 								:code="item.code"
@@ -29,8 +43,8 @@
 				</CheckboxGroup>
 				<hr class="popover__line" />
 				<div class="popover__control">
-					<v-button label="сбросить" color="gray" variant="ghost" />
-					<v-button @click="showForm" uppercase label="выбрать" icon="icon-arrowRightDown" />
+					<v-button @click="resetForm" label="Сбросить" color="gray" variant="ghost" />
+					<v-button @click="showForm" uppercase label="Выбрать" icon="icon-arrowRightDown" />
 				</div>
 			</Popover>
 		</div>
@@ -39,66 +53,69 @@
 </template>
 <script setup lang="ts">
 import Popover from 'primevue/popover';
-
 import { Form } from '@primevue/forms';
-
 import { ref } from 'vue';
+
 const op = ref();
-const popularCountries = [
-	{ title: 'Турция', id: 0, code: 'turkey' },
-	{ title: 'Египет', id: 1, code: 'egypt' },
-	{ title: 'Мальдивы', id: 2, code: 'maldives' },
-	{ title: 'ОАЭ', id: 3, code: 'uae' },
-	{ title: 'Греция', id: 4, code: 'greece' },
+
+interface Country {
+	title: string;
+	id: number;
+	code: string;
+	popular: boolean;
+	checked: boolean;
+}
+
+const selectedCountries = reactive<Country[]>([]);
+
+const countries = [
+	{ title: 'Турция', id: 0, code: 'turkey', popular: true },
+	{ title: 'Египет', id: 1, code: 'egypt', popular: true },
+	{ title: 'Мальдивы', id: 2, code: 'maldives', popular: true },
+	{ title: 'ОАЭ', id: 3, code: 'uae', popular: true },
+	{ title: 'Греция', id: 4, code: 'greece', popular: true },
+	{ title: 'Шри-Ланка', id: 5, code: 'sri-lanka', popular: false },
+	{ title: 'Абхазия', id: 6, code: 'abkhazia', popular: false },
+	{ title: 'Азербайджан', id: 7, code: 'azerbaijan', popular: false },
+	{ title: 'Армения', id: 8, code: 'armenia', popular: false },
+	{ title: 'Беларусь', id: 9, code: 'belarus', popular: false },
+	{ title: 'Венесуэла', id: 10, code: 'venezuela', popular: false },
+	{ title: 'Вьетнам', id: 11, code: 'vietnam', popular: false },
+	{ title: 'Куба', id: 12, code: 'cuba', popular: false },
+	{ title: 'Грузия', id: 13, code: 'georgia', popular: false },
+	{ title: 'Индия', id: 14, code: 'india', popular: false },
+	{ title: 'Китай', id: 15, code: 'china', popular: false },
+	{ title: 'Таиланд', id: 16, code: 'thailand', popular: false },
+	{ title: 'Индонезия', id: 17, code: 'indonesia', popular: false },
+	{ title: 'Испания', id: 18, code: 'spain', popular: false },
+	{ title: 'Италия', id: 19, code: 'italy', popular: false },
+	{ title: 'Франция', id: 20, code: 'france', popular: false },
+	{ title: 'Германия', id: 21, code: 'germany', popular: false },
+	{ title: 'Португалия', id: 22, code: 'portugal', popular: false },
+	{ title: 'Япония', id: 23, code: 'japan', popular: false },
 ];
-
-const otherCountries = [
-	{ title: 'Шри-Ланка', id: 5, code: 'sri-lanka' },
-	{ title: 'Абхазия', id: 6, code: 'abkhazia' },
-	{ title: 'Азербайджан', id: 7, code: 'azerbaijan' },
-	{ title: 'Армения', id: 8, code: 'armenia' },
-	{ title: 'Беларусь', id: 9, code: 'belarus' },
-	{ title: 'Венесуэла', id: 10, code: 'venezuela' },
-	{ title: 'Вьетнам', id: 11, code: 'vietnam' },
-	{ title: 'Куба', id: 12, code: 'cuba' },
-	{ title: 'Грузия', id: 13, code: 'georgia' },
-	{ title: 'Индия', id: 14, code: 'india' },
-	{ title: 'Китай', id: 15, code: 'china' },
-	{ title: 'Таиланд', id: 16, code: 'thailand' },
-	{ title: 'Индонезия', id: 17, code: 'indonesia' },
-	{ title: 'Испания', id: 18, code: 'spain' },
-	{ title: 'Италия', id: 19, code: 'italy' },
-	{ title: 'Франция', id: 20, code: 'france' },
-	{ title: 'Германия', id: 21, code: 'germany' },
-	{ title: 'Португалия', id: 22, code: 'portugal' },
-	{ title: 'Япония', id: 23, code: 'japan' },
-];
-
-const kuda = ref('куда');
-
+const whereText = computed(() =>
+	selectedCountries.length ? selectedCountries.map(item => item.title).join(', ') : ''
+);
 const toggle = (event: Event) => {
 	op.value.toggle(event);
 };
 const initialValues = ref({
 	popularCountries: [
-		...popularCountries.map(item => ({
-			...item, // Скопируем свойства item
-			checked: true, // Добавляем новое поле
-		})),
+		...countries.filter(item => item.popular).map(item => ({ ...item, checked: false })),
 	],
-	otherCountries: [
-		...otherCountries.map(item => ({
-			...item, // Скопируем свойства item
-			checked: false, // Добавляем новое поле
-		})),
+	countries: [
+		...countries.filter(item => !item.popular).map(item => ({ ...item, checked: false })),
 	],
 });
 const showForm = () => {
-	const selectedCountries = [
-		...initialValues.value.popularCountries.filter(item => item.checked),
-		...initialValues.value.otherCountries.filter(item => item.checked),
-	];
-	console.log('[selected countries]', selectedCountries);
+	selectedCountries.push(...initialValues.value.countries.filter(item => item.checked)),
+		selectedCountries.push(...initialValues.value.popularCountries.filter(item => item.checked)),
+		console.log('[input countries]', selectedCountries);
+};
+const resetForm = () => {
+	selectedCountries.forEach(item => (item.checked = false));
+	console.log('[clear countries]', selectedCountries);
 };
 const onFormSubmit = () => {
 	console.log('[submit]', initialValues.value);
@@ -152,10 +169,36 @@ const onFormSubmit = () => {
 		padding: 20px 40px;
 	}
 }
+.resetInput {
+	border: 0;
+	outline: 0;
+	width: 100%;
+	background-color: transparent;
+}
 .choice {
 	background-color: var(--white);
 	border-radius: 30px;
 	display: flex;
+	padding-block: 12px;
+	padding-inline: 28px 12px;
 	align-items: center;
+	min-height: 64px;
+
+	&__where {
+		height: 100%;
+		width: 130px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		border-right: 1px solid rgba(212, 212, 212, 1);
+		margin-right: 20px;
+		&:last-of-type {
+			border: 0;
+		}
+		&-text {
+			pointer-events: none;
+			color: var(--text-grey);
+		}
+	}
 }
 </style>
