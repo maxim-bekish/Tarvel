@@ -7,7 +7,9 @@ import VChoice from '@widgets/VChoice';
 		<v-banner img="home" text="путешествия<br>мечты" sub-text="выбери свою">
 			<v-choice />
 		</v-banner>
+    
 	</div>
 </template>
 
 <style></style>
+ 

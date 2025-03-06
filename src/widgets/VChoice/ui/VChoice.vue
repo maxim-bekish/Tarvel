@@ -1,73 +1,13 @@
 <template>
 	<Form v-slot="$form" :initialValues="initialValues" @submit="onFormSubmit" class="choice">
-		<div class="choice__where">
-			<div @click="toggle">
-				<label
-					for="where"
-					:class="whereText ? 'text-400-12-14' : 'text-500-16-19 text-uppercase'"
-					class="choice__where-text">
-					Куда
-				</label>
-				<input
-					v-show="whereText"
-					id="where"
-					class="text-uppercase resetInput text-500-16-19"
-					type="text"
-					:value="whereText" />
-			</div>
-
-			<Popover ref="op" class="popover">
-				<CheckboxGroup name="country" class="popover__content">
-					<div>
-						<v-text tag="h4" class="popover__content-group-title text-500-16-19">Популярные</v-text>
-						<div class="popover__content-group scroll">
-							<v-checkbox
-								v-for="item in initialValues.popularCountries"
-								:key="item.id"
-								v-model="item.checked"
-								:code="item.code"
-								:title="item.title" />
-						</div>
-					</div>
-					<div>
-						<v-text tag="h4" class="popover__content-group-title text-500-16-19">Все страны</v-text>
-						<div class="popover__content-group scroll">
-							<v-checkbox
-								v-for="item in initialValues.countries"
-								:key="item.id"
-								v-model="item.checked"
-								:code="item.code"
-								:title="item.title" />
-						</div>
-					</div>
-				</CheckboxGroup>
-				<hr class="popover__line" />
-				<div class="popover__control">
-					<v-button @click="resetForm" label="Сбросить" color="gray" variant="ghost" />
-					<v-button @click="showForm" uppercase label="Выбрать" icon="icon-arrowRightDown" />
-				</div>
-			</Popover>
-		</div>
+		<v-choice-where :countries="countries" :initialValues="initialValues" />
 		<v-button color="red" type="submit" uppercase label="оставить заявку" />
 	</Form>
 </template>
 <script setup lang="ts">
-import Popover from 'primevue/popover';
 import { Form } from '@primevue/forms';
-import { ref } from 'vue';
 
-const op = ref();
-
-interface Country {
-	title: string;
-	id: number;
-	code: string;
-	popular: boolean;
-	checked: boolean;
-}
-
-const selectedCountries = reactive<Country[]>([]);
-
+import VChoiceWhere from './VChoiceWhere.vue';
 const countries = [
 	{ title: 'Турция', id: 0, code: 'turkey', popular: true },
 	{ title: 'Египет', id: 1, code: 'egypt', popular: true },
@@ -94,12 +34,6 @@ const countries = [
 	{ title: 'Португалия', id: 22, code: 'portugal', popular: false },
 	{ title: 'Япония', id: 23, code: 'japan', popular: false },
 ];
-const whereText = computed(() =>
-	selectedCountries.length ? selectedCountries.map(item => item.title).join(', ') : ''
-);
-const toggle = (event: Event) => {
-	op.value.toggle(event);
-};
 const initialValues = ref({
 	popularCountries: [
 		...countries.filter(item => item.popular).map(item => ({ ...item, checked: false })),
@@ -108,73 +42,13 @@ const initialValues = ref({
 		...countries.filter(item => !item.popular).map(item => ({ ...item, checked: false })),
 	],
 });
-const showForm = () => {
-	selectedCountries.push(...initialValues.value.countries.filter(item => item.checked)),
-		selectedCountries.push(...initialValues.value.popularCountries.filter(item => item.checked)),
-		console.log('[input countries]', selectedCountries);
-};
-const resetForm = () => {
-	selectedCountries.forEach(item => (item.checked = false));
-	console.log('[clear countries]', selectedCountries);
-};
+
 const onFormSubmit = () => {
 	console.log('[submit]', initialValues.value);
 };
 </script>
 
 <style lang="scss" scoped>
-.popover {
-	border: none !important;
-	--p-popover-border-radius: 30px;
-	&::before,
-	&::after {
-		display: none !important;
-	}
-	&__content {
-		padding: 40px;
-		padding-bottom: 15px;
-		display: flex;
-		gap: 54px;
-		&-group {
-			overflow-y: auto;
-			overflow-x: hidden;
-			max-height: 250px;
-			max-width: 200px;
-			display: flex;
-			flex-direction: column;
-			gap: 13px;
-			&-title {
-				margin-bottom: 20px;
-			}
-			&-item {
-				label {
-					cursor: pointer;
-				}
-				display: flex;
-				align-items: center;
-				gap: 10px;
-			}
-		}
-	}
-	&__line {
-		// color: rgba(212, 212, 212, 1);
-		border: none;
-		height: 2px;
-		background: rgba(212, 212, 212, 1);
-	}
-	&__control {
-		display: flex;
-
-		justify-content: space-between;
-		padding: 20px 40px;
-	}
-}
-.resetInput {
-	border: 0;
-	outline: 0;
-	width: 100%;
-	background-color: transparent;
-}
 .choice {
 	background-color: var(--white);
 	border-radius: 30px;
@@ -183,22 +57,5 @@ const onFormSubmit = () => {
 	padding-inline: 28px 12px;
 	align-items: center;
 	min-height: 64px;
-
-	&__where {
-		height: 100%;
-		width: 130px;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		border-right: 1px solid rgba(212, 212, 212, 1);
-		margin-right: 20px;
-		&:last-of-type {
-			border: 0;
-		}
-		&-text {
-			pointer-events: none;
-			color: var(--text-grey);
-		}
-	}
 }
 </style>
