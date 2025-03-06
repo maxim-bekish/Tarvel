@@ -1,6 +1,8 @@
 <template>
 	<Form v-slot="$form" :initialValues="initialValues" @submit="onFormSubmit" class="choice">
 		<v-choice-where :countries="countries" :initialValues="initialValues" />
+		<v-choice-departure  />
+
 		<v-button color="red" type="submit" uppercase label="оставить заявку" />
 	</Form>
 </template>
@@ -8,6 +10,7 @@
 import { Form } from '@primevue/forms';
 
 import VChoiceWhere from './VChoiceWhere.vue';
+import VChoiceDeparture from './VChoiceDeparture.vue';
 const countries = [
 	{ title: 'Турция', id: 0, code: 'turkey', popular: true },
 	{ title: 'Египет', id: 1, code: 'egypt', popular: true },
